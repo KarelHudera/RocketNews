@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:background="@color/background_white">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="24dp"
+            android:gravity="center"
+            android:textSize="16dp"
+            android:elevation="1dp"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="@id/cardView"
+            app:layout_constraintTop_toTopOf="@id/cardView"
+            tools:text="The Tarantula Nebula from SuperBIT" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="match_parent"
+            android:layout_height="480dp"
+            android:layout_margin="24dp"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="0dp"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                tools:ignore="MissingConstraints"
+                tools:srcCompat="@tools:sample/avatars" />
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:gravity="center"
+            android:textSize="16dp"
+            android:elevation="1dp"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="@id/today"
+            app:layout_constraintBottom_toTopOf="@+id/today"
+            tools:text="2023-04-27" />
+
+        <TextView
+            android:id="@+id/today"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="24dp"
+            android:gravity="center"
+            android:textSize="40dp"
+            android:elevation="1dp"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="@id/cardView"
+            app:layout_constraintBottom_toBottomOf="@id/cardView"
+            tools:text="Today" />
+
+        <TextView
+            android:id="@+id/titleDown"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="16dp"
+            android:textSize="32dp"
+            app:layout_constraintStart_toStartOf="@id/cardView"
+            app:layout_constraintTop_toBottomOf="@id/cardView"
+            tools:text="Explanation" />
+
+        <TextView
+            android:id="@+id/explanation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:textSize="16dp"
+            android:textAlignment="viewStart"
+            app:layout_constraintStart_toStartOf="@id/titleDown"
+            app:layout_constraintTop_toBottomOf="@id/titleDown"
+            tools:text="The Tarantula Nebula, also known as 30 Doradus, is more than a thousand light-years in diameter, a giant star forming region within nearby satellite galaxy the Large Magellanic Cloud. About 160 thousand light-years away, it's the largest, most violent star forming region known in the whole Local Group of galaxies. The cosmic arachnid is near the center of this spectacular image taken during the flight of SuperBIT (Super Pressure Balloon Imaging Telescope), NASA's balloon-borne 0.5 meter telescope now floating near the edge of space. Within the well-studied Tarantula (NGC 2070), intense radiation, stellar winds and supernova shocks from the central young cluster of massive stars, cataloged as R136, energize the nebular glow and shape the spidery filaments. Around the Tarantula are other star forming regions with young star clusters, filaments, and blown-out bubble-shaped clouds. SuperBIT's wide field of view spans over 2 degrees or 4 full moons in the southern constellation Dorado." />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
+
