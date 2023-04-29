@@ -16,6 +16,6 @@ class App: Application() {
     }
 
     val appDatabase: AppDatabase by lazy {
-        Room.databaseBuilder(this, AppDatabase::class.java, "my-database").build()
+        Room.databaseBuilder(this, AppDatabase::class.java, "app_database").build()
     }
 }

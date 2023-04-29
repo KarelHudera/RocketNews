@@ -5,7 +5,7 @@ import androidx.room.*
 @Dao
 interface NasaItemDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(nasaItem: NasaItem)
+    suspend fun insert(String: NasaItem)
 
     @Query("SELECT * FROM nasa_items")
     suspend fun getAll(): List<NasaItem>

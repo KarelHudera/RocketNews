@@ -8,8 +8,8 @@ import androidx.room.PrimaryKey
 data class NasaItem(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,
-    val date: String,
-    val explanation: String,
-    val hdUrl: String,
-    val title: String,
+    val date: String?,
+    val explanation: String?,
+    val hdUrl: String?,
+    val title: String?,
 )

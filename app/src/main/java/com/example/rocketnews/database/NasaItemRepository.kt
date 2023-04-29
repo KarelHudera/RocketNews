@@ -2,6 +2,8 @@ package com.example.rocketnews.database
 
 import android.database.sqlite.SQLiteException
 import androidx.room.Room
+import androidx.room.RoomDatabase
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.rocketnews.App
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -11,29 +13,22 @@ class NasaItemRepository {
         App.instance.applicationContext,
         AppDatabase::class.java,
         "app_database"
-    ).build()
+    ).addCallback(object : RoomDatabase.Callback() {
+        override fun onCreate(db: SupportSQLiteDatabase) {
+            super.onCreate(db)
+
+        }
+    }).build()
 
     private val nasaItemDao = database.nasaItemDao()
 
-    suspend fun insert(nasaItem: NasaItem) {
-        try {
-            nasaItemDao.insert(nasaItem)
-        } catch (ex: SQLiteException) {
-            // Handle SQLiteExceptions here
-        }
-    }
-
     suspend fun getAll(): List<NasaItem> {
         return try {
-            nasaItemDao.getAll()
+            withContext(Dispatchers.IO) {
+                nasaItemDao.getAll()
+            }
         } catch (ex: SQLiteException) {
             emptyList()
         }
     }
-
-//    suspend fun delete(nasaItem: NasaItem) {
-//        withContext(Dispatchers.IO) {
-//            nasaItemDao.delete=(nasaItem)
-//        }
-//    }
 }
