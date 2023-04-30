@@ -1,9 +1,11 @@
 package com.example.rocketnews.daily
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -42,6 +44,7 @@ class DailyFragment : Fragment() {
         super.onDestroyView()
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -50,7 +53,11 @@ class DailyFragment : Fragment() {
         }
 
         viewModel.screenState.observe(viewLifecycleOwner) { state ->
-            mergeBinding.updateVisibility(state)
+
+            viewLifecycleOwner.lifecycleScope.launch {
+                val nasaItem = withContext(Dispatchers.IO) { repository.getAll().firstOrNull() }
+                mergeBinding.updateVisibility(state, nasaItem)
+            }
 
             when (state) {
                 is DailyFragmentScreenState.Error -> {
@@ -59,7 +66,7 @@ class DailyFragment : Fragment() {
                     mergeBinding.errorMessageErrorLayout.text = "Error: ${state.throwable.localizedMessage}"
 
                     viewLifecycleOwner.lifecycleScope.launch {
-                        val nasaItem = getFirstNasaItem()
+                        val nasaItem = getFirstNasaItem()!!
                         with(binding) {
                             title.text = nasaItem.title
                             titleDown.text = "Explanation"
@@ -67,6 +74,7 @@ class DailyFragment : Fragment() {
                             date.text = nasaItem.date
                             today.text = "Today"
                         }
+                        Toast.makeText(context, "You are offline", Toast.LENGTH_SHORT).show()
                     }
 
                 }
@@ -75,7 +83,7 @@ class DailyFragment : Fragment() {
                 }
                 is DailyFragmentScreenState.Success -> {
                     with(binding) {
-                        context?.let { ctx ->
+                        val let = context?.let { ctx ->
                             val request = ImageRequest.Builder(ctx)
                                 .data(state.data.url)
                                 .target(onSuccess = { result ->
@@ -104,13 +112,13 @@ class DailyFragment : Fragment() {
         }
     }
 
-    private suspend fun getFirstNasaItem(): NasaItem {
-        return repository.getAll().first()
+    private suspend fun getFirstNasaItem(): NasaItem? {
+        return repository.getAll().firstOrNull()
     }
 }
 
-fun LayoutErrorLoadingBinding.updateVisibility(state: DailyFragmentScreenState) {
-    refreshButtonErrorLayout.isVisible = state is DailyFragmentScreenState.Error
-    errorMessageErrorLayout.isVisible = state is DailyFragmentScreenState.Error
+fun LayoutErrorLoadingBinding.updateVisibility(state: DailyFragmentScreenState, nasaItem: NasaItem?) {
+    refreshButtonErrorLayout.isVisible = state is DailyFragmentScreenState.Error && nasaItem == null
+    errorMessageErrorLayout.isVisible = state is DailyFragmentScreenState.Error && nasaItem == null
     progressBarErrorLayout.isVisible = state is DailyFragmentScreenState.Loading
 }

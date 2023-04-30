@@ -29,6 +29,10 @@ class DailyFragmentViewModel: ViewModel() {
                 val responseNasa = getResponseNasa(apiKey).body()!!
                 _screenState.postValue(DailyFragmentScreenState.Success(responseNasa))
 
+                // Delete old data
+                appDatabase.nasaItemDao().deleteAll()
+
+                // Insert new data
                 val nasaItem = NasaItem(
                     date = responseNasa.date,
                     explanation = responseNasa.explanation,

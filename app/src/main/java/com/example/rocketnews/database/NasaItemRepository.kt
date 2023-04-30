@@ -13,12 +13,7 @@ class NasaItemRepository {
         App.instance.applicationContext,
         AppDatabase::class.java,
         "app_database"
-    ).addCallback(object : RoomDatabase.Callback() {
-        override fun onCreate(db: SupportSQLiteDatabase) {
-            super.onCreate(db)
-
-        }
-    }).build()
+    ).build()
 
     private val nasaItemDao = database.nasaItemDao()
 
