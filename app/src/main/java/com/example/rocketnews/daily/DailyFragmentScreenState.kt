@@ -1,6 +1,6 @@
 package com.example.rocketnews.daily
 
-import com.example.rocketnews.api.ResponseNasa
+import com.example.rocketnews.apiNasa.ResponseNasa
 
 sealed class DailyFragmentScreenState {
     data class Success(val data: ResponseNasa) : DailyFragmentScreenState()

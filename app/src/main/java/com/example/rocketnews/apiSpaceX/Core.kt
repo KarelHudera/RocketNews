@@ -1,4 +1,4 @@
-package com.example.rocketnews.api
+package com.example.rocketnews.apiSpaceX
 
 
 import com.squareup.moshi.Json
@@ -7,21 +7,21 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class Core(
     @Json(name = "core")
-    val core: String,
+    val core: String?,
     @Json(name = "flight")
-    val flight: Int,
+    val flight: Int?,
     @Json(name = "gridfins")
-    val gridfins: Boolean,
+    val gridfins: Boolean?,
     @Json(name = "landing_attempt")
-    val landingAttempt: Boolean,
+    val landingAttempt: Boolean?,
     @Json(name = "landing_success")
-    val landingSuccess: Boolean,
+    val landingSuccess: Boolean?,
     @Json(name = "landing_type")
-    val landingType: String,
+    val landingType: String?,
     @Json(name = "landpad")
-    val landpad: String,
+    val landpad: String?,
     @Json(name = "legs")
-    val legs: Boolean,
+    val legs: Boolean?,
     @Json(name = "reused")
-    val reused: Boolean
+    val reused: Boolean?
 )

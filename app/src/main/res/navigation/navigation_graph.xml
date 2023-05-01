@@ -8,4 +8,8 @@
         android:id="@+id/dailyFragment"
         android:name="com.example.rocketnews.daily.DailyFragment"
         android:label="DailyFragment" />
+    <fragment
+        android:id="@+id/launchesFragment2"
+        android:name="com.example.rocketnews.launches.LaunchesFragment"
+        android:label="LaunchesFragment" />
 </navigation>

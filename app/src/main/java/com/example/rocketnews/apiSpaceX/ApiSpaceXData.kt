@@ -1,5 +1,7 @@
-package com.example.rocketnews.api
+package com.example.rocketnews.apiSpaceX
 
+import com.example.rocketnews.apiNasa.ApiNasaInterface
+import com.example.rocketnews.apiNasa.ResponseNasa
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient
@@ -8,9 +10,9 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
-private const val baseUrl = "https://api.nasa.gov/planetary/"
+private const val baseUrl = "https://api.spacexdata.com/v4/"
 
-object ApiData {
+object ApiSpaceXData {
     private val apiInterface by lazy {
         val moshi = Moshi.Builder()
             .addLast(KotlinJsonAdapterFactory())
@@ -30,10 +32,10 @@ object ApiData {
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
 
-        retrofit.create(ApiInterface::class.java)
+        retrofit.create(ApiSpaceXInterface::class.java)
     }
 
-    suspend fun getResponseNasa(apiKey: String): Response<ResponseNasa> {
-        return apiInterface.getResponseNasa(apiKey)
+    suspend fun getResponseSpaceX(): Response<List<ResponseSpaceXItem>> {
+        return apiInterface.getResponseSpaceX()
     }
 }

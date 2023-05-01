@@ -97,7 +97,7 @@
 
         <include
             layout="@layout/layout_error_loading"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

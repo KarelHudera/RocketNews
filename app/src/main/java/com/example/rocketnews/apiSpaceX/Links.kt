@@ -1,4 +1,4 @@
-package com.example.rocketnews.api
+package com.example.rocketnews.apiSpaceX
 
 
 import com.squareup.moshi.Json
@@ -7,19 +7,19 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class Links(
     @Json(name = "article")
-    val article: String,
+    val article: String?,
     @Json(name = "flickr")
-    val flickr: Flickr,
+    val flickr: Flickr?,
     @Json(name = "patch")
-    val patch: Patch,
+    val patch: Patch?,
     @Json(name = "presskit")
-    val presskit: String,
+    val presskit: String?,
     @Json(name = "reddit")
-    val reddit: Reddit,
+    val reddit: Reddit?,
     @Json(name = "webcast")
-    val webcast: String,
+    val webcast: String?,
     @Json(name = "wikipedia")
-    val wikipedia: String,
+    val wikipedia: String?,
     @Json(name = "youtube_id")
-    val youtubeId: String
+    val youtubeId: String?
 )

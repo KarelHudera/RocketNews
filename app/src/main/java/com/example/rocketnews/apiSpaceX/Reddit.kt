@@ -1,4 +1,4 @@
-package com.example.rocketnews.api
+package com.example.rocketnews.apiSpaceX
 
 
 import com.squareup.moshi.Json
@@ -7,11 +7,11 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class Reddit(
     @Json(name = "campaign")
-    val campaign: String,
+    val campaign: String?,
     @Json(name = "launch")
-    val launch: String,
+    val launch: String?,
     @Json(name = "media")
-    val media: String,
+    val media: String?,
     @Json(name = "recovery")
-    val recovery: String
+    val recovery: String?
 )

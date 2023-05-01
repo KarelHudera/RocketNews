@@ -1,4 +1,4 @@
-package com.example.rocketnews.api
+package com.example.rocketnews.apiNasa
 
 
 import com.squareup.moshi.Json

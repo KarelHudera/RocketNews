@@ -6,7 +6,7 @@
         android:title="Daily" />
 
     <item
-        android:id="@+id/launchesFragment"
+        android:id="@+id/launchesFragment2"
         android:icon="@android:drawable/ic_menu_my_calendar"
         android:title="Launches" />
 </menu>

@@ -20,7 +20,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class DailyFragment : Fragment() {
+class DailyFragment: Fragment() {
     private var _binding: FragmentDailyBinding? = null
     private val binding get() = _binding!!
     private var _mergeBinding: LayoutErrorLoadingBinding? = null
@@ -83,24 +83,24 @@ class DailyFragment : Fragment() {
                 }
                 is DailyFragmentScreenState.Success -> {
                     with(binding) {
-                        val let = context?.let { ctx ->
-                            val request = ImageRequest.Builder(ctx)
-                                .data(state.data.url)
-                                .target(onSuccess = { result ->
-                                    imageView.setImageDrawable(result)
-                                    imageView.postDelayed({
-                                        val hdRequest = ImageRequest.Builder(ctx)
-                                            .data(state.data.hdurl)
-                                            .target(onSuccess = { hdResult ->
-                                                imageView.setImageDrawable(hdResult)
-                                            })
-                                            .build()
-                                        ctx.imageLoader.enqueue(hdRequest)
-                                    }, 1000)
-                                })
-                                .build()
-                            ctx.imageLoader.enqueue(request)
-                        }
+                        val request = ImageRequest.Builder(requireContext())
+                            .data(state.data.url)
+                            .target(onSuccess = { result ->
+                                // Set the low-resolution image as the image view's drawable
+                                imageView.setImageDrawable(result)
+
+                                // Load the high-resolution image
+                                val hdRequest = ImageRequest.Builder(requireContext())
+                                    .data(state.data.hdurl)
+                                    .target(onSuccess = { hdResult ->
+                                        // Set the high-resolution image as the image view's drawable
+                                        imageView.setImageDrawable(hdResult)
+                                    })
+                                    .build()
+                                requireContext().imageLoader.enqueue(hdRequest)
+                            })
+                            .build()
+                        requireContext().imageLoader.enqueue(request)
                         title.text = state.data.title
                         titleDown.text = "Explanation"
                         explanation.text = state.data.explanation

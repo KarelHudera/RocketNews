@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.rocketnews.App
-import com.example.rocketnews.api.ApiData.getResponseNasa
+import com.example.rocketnews.apiNasa.ApiNasaData.getResponseNasa
 import com.example.rocketnews.database.NasaItem
 import kotlinx.coroutines.launch
 
