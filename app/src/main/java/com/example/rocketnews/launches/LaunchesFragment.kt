@@ -9,26 +9,24 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import coil.request.ImageRequest
-import com.example.rocketnews.daily.DailyFragmentScreenState
-import com.example.rocketnews.daily.DailyFragmentViewModel
-import com.example.rocketnews.database.NasaItem
-import com.example.rocketnews.database.NasaItemRepository
-import com.example.rocketnews.databinding.FragmentDailyBinding
+import com.example.rocketnews.databaseSpaceX.SpaceXItem
+import com.example.rocketnews.databaseSpaceX.SpaceXItemDao
+import com.example.rocketnews.databaseSpaceX.SpaceXItemRepository
 import com.example.rocketnews.databinding.FragmentLaunchesBinding
 import com.example.rocketnews.databinding.LayoutErrorLoadingBinding
-import com.example.rocketnews.extensions.safeNavigate
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class LaunchesFragment: Fragment() {
     private var _binding: FragmentLaunchesBinding? = null
     private val binding get() = _binding!!
     private var _mergeBinding: LayoutErrorLoadingBinding? = null
     private val mergeBinding get() = _mergeBinding!!
+
+    private val launchesAdapter = LaunchesAdapter ()
+    private val launchesFavouriteAdapterAdapter = LaunchesFavouriteAdapter()
+    private val spaceXItemRepository = SpaceXItemRepository()
 
     private val viewModel by viewModels<LaunchesFragmentViewModel>()
 
@@ -55,12 +53,16 @@ class LaunchesFragment: Fragment() {
             viewModel.refreshFragment()
         }
 
-        val launchesAdapter = LaunchesAdapter ()
-
         binding.recyclerItems.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = launchesAdapter
         }
+
+        binding.recyclerFavouriteItems.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = launchesFavouriteAdapterAdapter
+        }
+
 
         viewModel.screenState.observe(viewLifecycleOwner) { state ->
 
@@ -70,25 +72,25 @@ class LaunchesFragment: Fragment() {
 
             when (state) {
                 is LaunchesFragmentScreenState.Error -> {
-
                     state.throwable.printStackTrace()
                     mergeBinding.errorMessageErrorLayout.text = "Error: ${state.throwable.localizedMessage}"
-
-
                 }
                 is LaunchesFragmentScreenState.Loading -> {
                     //Left blank intentionally
                 }
                 is LaunchesFragmentScreenState.Success -> {
-
                     launchesAdapter.submitList(state.data)
-
+                    viewLifecycleOwner.lifecycleScope.launch {
+                        launchesFavouriteAdapterAdapter.submitList(getSpaceXItems())
+                    }
+                    binding.favourites.text = "Favourites"
                 }
             }
         }
     }
-
-
+    private suspend fun getSpaceXItems(): List<SpaceXItem> = coroutineScope {
+        spaceXItemRepository.getAllSpaceX()
+    }
 }
 
 fun LayoutErrorLoadingBinding.updateVisibility(state: LaunchesFragmentScreenState) {
@@ -96,3 +98,4 @@ fun LayoutErrorLoadingBinding.updateVisibility(state: LaunchesFragmentScreenStat
     errorMessageErrorLayout.isVisible = state is LaunchesFragmentScreenState.Error
     progressBarErrorLayout.isVisible = state is LaunchesFragmentScreenState.Loading
 }
+

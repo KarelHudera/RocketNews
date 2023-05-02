@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.rocketnews.App
 import com.example.rocketnews.apiNasa.ApiNasaData.getResponseNasa
-import com.example.rocketnews.database.NasaItem
+import com.example.rocketnews.databaseNasa.NasaItem
 import kotlinx.coroutines.launch
 
 class DailyFragmentViewModel: ViewModel() {
@@ -14,7 +14,7 @@ class DailyFragmentViewModel: ViewModel() {
     private val _screenState = MutableLiveData<DailyFragmentScreenState>()
     val screenState: LiveData<DailyFragmentScreenState> = _screenState
     private val apiKey = "428D3IouMHvoxKD8eaefoZKwe0w2Syv3t5eFbklA"
-    private val appDatabase = App.instance.appDatabase
+    private val appDatabase = App.instance.databaseNasa
 
 
     init {

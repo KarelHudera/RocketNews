@@ -1,9 +1,9 @@
-package com.example.rocketnews.database
+package com.example.rocketnews.databaseNasa
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
 
 @Database(entities = [NasaItem::class], version = 1, exportSchema = false)
-abstract class AppDatabase : RoomDatabase() {
+abstract class DatabaseNasa : RoomDatabase() {
     abstract fun nasaItemDao(): NasaItemDao
 }

@@ -2,7 +2,8 @@ package com.example.rocketnews
 
 import android.app.Application
 import androidx.room.Room
-import com.example.rocketnews.database.AppDatabase
+import com.example.rocketnews.databaseNasa.DatabaseNasa
+import com.example.rocketnews.databaseSpaceX.DatabaseSpaceX
 
 class App: Application() {
 
@@ -15,7 +16,11 @@ class App: Application() {
         lateinit var instance: App
     }
 
-    val appDatabase: AppDatabase by lazy {
-        Room.databaseBuilder(this, AppDatabase::class.java, "app_database").build()
+    val databaseNasa: DatabaseNasa by lazy {
+        Room.databaseBuilder(this, DatabaseNasa::class.java, "database_nasa").build()
+    }
+
+    val databaseSpaceX: DatabaseSpaceX by lazy {
+        Room.databaseBuilder(this, DatabaseSpaceX::class.java, "database_spacex").build()
     }
 }

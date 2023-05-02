@@ -12,8 +12,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import coil.imageLoader
 import coil.request.ImageRequest
-import com.example.rocketnews.database.NasaItem
-import com.example.rocketnews.database.NasaItemRepository
+import com.example.rocketnews.databaseNasa.NasaItem
+import com.example.rocketnews.databaseNasa.NasaItemRepository
 import com.example.rocketnews.databinding.FragmentDailyBinding
 import com.example.rocketnews.databinding.LayoutErrorLoadingBinding
 import kotlinx.coroutines.Dispatchers

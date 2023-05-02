@@ -20,35 +20,36 @@ import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class LaunchesAdapter() :
-    ListAdapter<ResponseSpaceXItem, LaunchesAdapter.ItemViewHolder>(ItemsDiffCallBack()) {
+class LaunchesFavouriteAdapter :
+    ListAdapter<SpaceXItem, LaunchesFavouriteAdapter.ItemViewHolder>(ItemsDiffCallBack()) {
 
-    private val appDatabase = App.instance.databaseSpaceX
-
+    val repository = SpaceXItemRepository()
 
     inner class ItemViewHolder(private val binding: ItemLaunchesBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         @OptIn(DelicateCoroutinesApi::class)
-        fun onBind(item: ResponseSpaceXItem) {
-            with(binding){
-                imageView.load(item.links?.patch?.small)
+        fun onBind(item: SpaceXItem) {
+            with(binding) {
+                imageView.load(item.imageUrl)
                 name.text = item.name
                 timer.text = item.dateUtc
                 livestream.apply {
                     text = "Livestream"
                     setOnClickListener {
-                        val videoId = item.links?.youtubeId
+                        val videoId = item.youtubeId
                         if (videoId != null) {
-                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=$videoId"))
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                            intent.setPackage("com.google.android.youtube")
-                            try {
-                                context.startActivity(intent)
-                            } catch (e: ActivityNotFoundException) {
-                                // YouTube app is not installed, open in browser instead
-                                val webIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=$videoId"))
-                                context.startActivity(webIntent)
+                            if (videoId.isNotEmpty()) {
+                                val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=$videoId"))
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                intent.setPackage("com.google.android.youtube")
+                                try {
+                                    context.startActivity(intent)
+                                } catch (e: ActivityNotFoundException) {
+                                    // YouTube app is not installed, open in browser instead
+                                    val webIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=$videoId"))
+                                    context.startActivity(webIntent)
+                                }
                             }
                         }
                     }
@@ -56,7 +57,7 @@ class LaunchesAdapter() :
                 wiki.apply {
                     text = "Wiki"
                     setOnClickListener {
-                        val url = item.links?.wikipedia
+                        val url = item.wikipediaUrl
                         if (!url.isNullOrEmpty()) {
                             val intent = Intent(Intent.ACTION_VIEW)
                             intent.data = Uri.parse(url)
@@ -64,36 +65,32 @@ class LaunchesAdapter() :
                         }
                     }
                 }
-                buttonFavorite.apply {
-                    setOnClickListener {
-                        val spaceXItem = SpaceXItem(
-                            name = item.name.orEmpty(),
-                            imageUrl = item.links?.patch?.small.orEmpty(),
-                            dateUtc = item.dateUtc.orEmpty(),
-                            youtubeId = item.links?.youtubeId.orEmpty(),
-                            wikipediaUrl = item.links?.wikipedia.orEmpty()
-                        )
+                buttonFavorite.setOnClickListener {
+                    val position = absoluteAdapterPosition
+                    if (position != RecyclerView.NO_POSITION) {
+                        val selectedItem = getItem(position)
                         GlobalScope.launch {
-                            SpaceXItemRepository().insertSpaceX(spaceXItem)
+                            repository.deleteSpaceX(selectedItem)
                         }
+                        notifyItemRemoved(position)
                     }
                 }
             }
         }
     }
 
-    private class ItemsDiffCallBack : DiffUtil.ItemCallback<ResponseSpaceXItem>() {
+    private class ItemsDiffCallBack : DiffUtil.ItemCallback<SpaceXItem>() {
         override fun areItemsTheSame(
-            oldSpaceXData: ResponseSpaceXItem,
-            newSpaceXData: ResponseSpaceXItem
-        ): Boolean =
-            oldSpaceXData == newSpaceXData
-
-        override fun areContentsTheSame(
-            oldSpaceXData: ResponseSpaceXItem,
-            newSpaceXData: ResponseSpaceXItem
+            oldSpaceXData: SpaceXItem,
+            newSpaceXData: SpaceXItem
         ): Boolean =
             oldSpaceXData.name == newSpaceXData.name
+
+        override fun areContentsTheSame(
+            oldSpaceXData: SpaceXItem,
+            newSpaceXData: SpaceXItem
+        ): Boolean =
+            oldSpaceXData == newSpaceXData
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {

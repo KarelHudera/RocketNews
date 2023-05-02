@@ -1,6 +1,5 @@
-package com.example.rocketnews.database
+package com.example.rocketnews.databaseNasa
 
-import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 

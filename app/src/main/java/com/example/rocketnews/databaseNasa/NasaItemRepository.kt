@@ -1,18 +1,16 @@
-package com.example.rocketnews.database
+package com.example.rocketnews.databaseNasa
 
 import android.database.sqlite.SQLiteException
 import androidx.room.Room
-import androidx.room.RoomDatabase
-import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.rocketnews.App
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class NasaItemRepository {
-    private val database: AppDatabase = Room.databaseBuilder(
+    private val database: DatabaseNasa = Room.databaseBuilder(
         App.instance.applicationContext,
-        AppDatabase::class.java,
-        "app_database"
+        DatabaseNasa::class.java,
+        "database_nasa"
     ).build()
 
     private val nasaItemDao = database.nasaItemDao()

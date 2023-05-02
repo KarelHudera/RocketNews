@@ -1,4 +1,4 @@
-package com.example.rocketnews.database
+package com.example.rocketnews.databaseNasa
 
 import androidx.room.*
 
