@@ -12,9 +12,9 @@ interface SpaceXItemDao {
     @Query("SELECT * FROM spacex_items")
     suspend fun getAllSpaceX(): List<SpaceXItem>
 
-//    @Query("DELETE FROM spacex_items WHERE id = :itemId")
-//    suspend fun deleteSpaceX(itemId: Int)
-
     @Delete
     suspend fun deleteSpaceX(spaceXItem: SpaceXItem)
+
+    @Query("DELETE FROM spacex_items")
+    suspend fun deleteAllSpaceX()
 }

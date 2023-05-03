@@ -9,14 +9,18 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.rocketnews.databaseSpaceX.SpaceXItem
 import com.example.rocketnews.databaseSpaceX.SpaceXItemDao
 import com.example.rocketnews.databaseSpaceX.SpaceXItemRepository
 import com.example.rocketnews.databinding.FragmentLaunchesBinding
 import com.example.rocketnews.databinding.LayoutErrorLoadingBinding
+import com.example.rocketnews.extensions.safeNavigate
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
+
 
 class LaunchesFragment: Fragment() {
     private var _binding: FragmentLaunchesBinding? = null
@@ -63,7 +67,6 @@ class LaunchesFragment: Fragment() {
             adapter = launchesFavouriteAdapterAdapter
         }
 
-
         viewModel.screenState.observe(viewLifecycleOwner) { state ->
 
             viewLifecycleOwner.lifecycleScope.launch {
@@ -79,11 +82,34 @@ class LaunchesFragment: Fragment() {
                     //Left blank intentionally
                 }
                 is LaunchesFragmentScreenState.Success -> {
-                    launchesAdapter.submitList(state.data)
-                    viewLifecycleOwner.lifecycleScope.launch {
-                        launchesFavouriteAdapterAdapter.submitList(getSpaceXItems())
+                    with(binding) {
+                        launchesAdapter.submitList(state.data)
+                        viewLifecycleOwner.lifecycleScope.launch {
+                            launchesFavouriteAdapterAdapter.submitList(getSpaceXItems())
+                        }
+                        favourites.text = "Favourites"
+                        filterText.apply {
+                            text = "Filter"
+                            setOnClickListener {
+                                findNavController().safeNavigate(
+                                    LaunchesFragmentDirections.actionToFilter()
+                                )
+                            }
+                        }
+                        icon.setOnClickListener {
+                            findNavController().safeNavigate(
+                                LaunchesFragmentDirections.actionToFilter()
+                            )
+                        }
+                        binding.unPinAll.apply {
+                            text = "Unpin all"
+                            setOnClickListener {
+                                viewModel.viewModelScope.launch {
+                                    spaceXItemRepository.deleteAllSpaceX()
+                                }
+                            }
+                        }
                     }
-                    binding.favourites.text = "Favourites"
                 }
             }
         }

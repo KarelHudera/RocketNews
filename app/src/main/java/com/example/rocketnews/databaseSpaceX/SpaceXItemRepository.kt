@@ -37,4 +37,10 @@ class SpaceXItemRepository {
             spaceXItemDao.deleteSpaceX(spaceXItem)
         }
     }
+
+    suspend fun deleteAllSpaceX() {
+        withContext(Dispatchers.IO) {
+            spaceXItemDao.deleteAllSpaceX()
+        }
+    }
 }

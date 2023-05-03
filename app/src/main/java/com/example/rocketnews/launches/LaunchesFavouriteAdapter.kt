@@ -84,13 +84,13 @@ class LaunchesFavouriteAdapter :
             oldSpaceXData: SpaceXItem,
             newSpaceXData: SpaceXItem
         ): Boolean =
-            oldSpaceXData.name == newSpaceXData.name
+            oldSpaceXData == newSpaceXData
 
         override fun areContentsTheSame(
             oldSpaceXData: SpaceXItem,
             newSpaceXData: SpaceXItem
         ): Boolean =
-            oldSpaceXData == newSpaceXData
+            oldSpaceXData.name == newSpaceXData.name
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
