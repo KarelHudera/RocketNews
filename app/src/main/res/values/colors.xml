@@ -8,7 +8,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="background_white">#EFEFEF</color>
+    <color name="background_white">#f1f1f1</color>
+    <color name="red">#FF0000</color>
+    <color name="unpinned_white">#e7e7e7</color>
+    <color name="pinned_yellow">#ffff00</color>
 
-    F2F2F2
 </resources>

@@ -4,53 +4,42 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/background_white">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="16dp"
         android:background="@color/background_white">
 
-        <TextView
-            android:id="@+id/filterText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:layout_margin="16dp"
-            android:text="Filter"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
 
-        <ImageView
-            android:id="@+id/icon"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_margin="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="?android:attr/actionModeWebSearchDrawable" />
-
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerItems"
+        <Button
+            style="?attr/materialIconButtonStyle"
+            android:id="@+id/buttonFilter"
+            android:layout_marginHorizontal="16dp"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_marginTop="8dp"
-            android:clipToPadding="false"
-            android:paddingBottom="8dp"
-            app:layout_constraintTop_toBottomOf="@id/filterText"/>
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@android:color/transparent"
+            android:drawableLeft="@android:drawable/ic_menu_search"
+            android:text="Type in mission name or payload name..."
+            android:textColor="@color/black"
+            android:textSize="10sp"
+            android:drawableTint="@android:color/black"/>
 
         <TextView
-            android:id="@+id/favourites"
+            android:id="@+id/pinned"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:text="favourites"
-            app:layout_constraintTop_toBottomOf="@id/recyclerItems"
+            android:layout_marginTop="16dp"
+            android:text="Pinned"
+            app:layout_constraintTop_toBottomOf="@id/buttonFilter"
             app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
@@ -62,7 +51,7 @@
             android:textSize="16sp"
             android:textStyle="bold"
             android:text="Unpin all"
-            app:layout_constraintTop_toBottomOf="@id/recyclerItems"
+            app:layout_constraintTop_toTopOf="@+id/pinned"
             app:layout_constraintEnd_toEndOf="parent"/>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -72,8 +61,43 @@
             android:layout_marginTop="8dp"
             android:clipToPadding="false"
             android:paddingBottom="8dp"
+            app:layout_constraintTop_toBottomOf="@id/pinned" />
 
-            app:layout_constraintTop_toBottomOf="@id/favourites" />
+        <TextView
+            android:id="@+id/upcoming"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:gravity="center"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:text="Upcoming"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerFavouriteItems"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/sortBy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:text="Sort by"
+            app:layout_constraintTop_toTopOf="@+id/upcoming"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerItems"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:clipToPadding="false"
+            android:paddingBottom="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/upcoming"/>
+
+
+
 
         <include
             android:id="@+id/include"

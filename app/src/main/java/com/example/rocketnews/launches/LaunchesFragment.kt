@@ -12,7 +12,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.rocketnews.databaseSpaceX.SpaceXItem
-import com.example.rocketnews.databaseSpaceX.SpaceXItemDao
 import com.example.rocketnews.databaseSpaceX.SpaceXItemRepository
 import com.example.rocketnews.databinding.FragmentLaunchesBinding
 import com.example.rocketnews.databinding.LayoutErrorLoadingBinding
@@ -87,19 +86,14 @@ class LaunchesFragment: Fragment() {
                         viewLifecycleOwner.lifecycleScope.launch {
                             launchesFavouriteAdapterAdapter.submitList(getSpaceXItems())
                         }
-                        favourites.text = "Favourites"
-                        filterText.apply {
-                            text = "Filter"
+                        pinned.text = "Pinned"
+                        buttonFilter.apply {
+                            text = "Type in mission name or payload name..."
                             setOnClickListener {
                                 findNavController().safeNavigate(
                                     LaunchesFragmentDirections.actionToFilter()
                                 )
                             }
-                        }
-                        icon.setOnClickListener {
-                            findNavController().safeNavigate(
-                                LaunchesFragmentDirections.actionToFilter()
-                            )
                         }
                         binding.unPinAll.apply {
                             text = "Unpin all"
@@ -109,6 +103,8 @@ class LaunchesFragment: Fragment() {
                                 }
                             }
                         }
+                        upcoming.text = "Upcoming"
+                        sortBy.text = "Sort by"
                     }
                 }
             }

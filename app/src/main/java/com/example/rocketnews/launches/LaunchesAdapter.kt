@@ -5,14 +5,12 @@ import android.content.Intent
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.rocketnews.App
 import com.example.rocketnews.apiSpaceX.ResponseSpaceXItem
-import com.example.rocketnews.databaseNasa.NasaItem
 import com.example.rocketnews.databaseSpaceX.SpaceXItem
 import com.example.rocketnews.databaseSpaceX.SpaceXItemRepository
 import com.example.rocketnews.databinding.ItemLaunchesBinding
@@ -35,7 +33,7 @@ class LaunchesAdapter() :
                 imageView.load(item.links?.patch?.small)
                 name.text = item.name
                 timer.text = item.dateUtc
-                livestream.apply {
+                livestreamItem.apply {
                     text = "Livestream"
                     setOnClickListener {
                         val videoId = item.links?.youtubeId
