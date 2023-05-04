@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -15,8 +17,12 @@ import com.example.rocketnews.databaseSpaceX.SpaceXItem
 import com.example.rocketnews.databaseSpaceX.SpaceXItemRepository
 import com.example.rocketnews.databinding.FragmentLaunchesBinding
 import com.example.rocketnews.databinding.LayoutErrorLoadingBinding
-import com.example.rocketnews.extensions.safeNavigate
+import androidx.core.widget.addTextChangedListener
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.rocketnews.apiSpaceX.ApiSpaceXData
+import com.example.rocketnews.apiSpaceX.ResponseSpaceXItem
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 
@@ -82,17 +88,23 @@ class LaunchesFragment: Fragment() {
                 }
                 is LaunchesFragmentScreenState.Success -> {
                     with(binding) {
+                        recyclerItemsFilter.isVisible = false
                         launchesAdapter.submitList(state.data)
                         viewLifecycleOwner.lifecycleScope.launch {
                             launchesFavouriteAdapterAdapter.submitList(getSpaceXItems())
                         }
                         pinned.text = "Pinned"
-                        buttonFilter.apply {
-                            text = "Type in mission name or payload name..."
-                            setOnClickListener {
-                                findNavController().safeNavigate(
-                                    LaunchesFragmentDirections.actionToFilter()
-                                )
+                        editTextFilter.addTextChangedListener {
+                            if (it != null) {
+                                viewModel.onTextChanged(it.toString())
+                                pinned.isVisible = false
+                                unPinAll.isVisible = false
+                                upcoming.isVisible = false
+                                sortBy.isVisible = false
+                                recyclerItems.isVisible = false
+                                recyclerFavouriteItems.isVisible = false
+                                recyclerItemsFilter.isVisible = true
+
                             }
                         }
                         binding.unPinAll.apply {
@@ -106,6 +118,33 @@ class LaunchesFragment: Fragment() {
                         upcoming.text = "Upcoming"
                         sortBy.text = "Sort by"
                     }
+                    //=============================================
+                    binding.recyclerItemsFilter.apply {
+                        layoutManager = LinearLayoutManager(context)
+                        adapter = launchesAdapter
+                    }
+
+                    binding.editTextFilter.addTextChangedListener {
+                        if (it != null) {
+                            viewModel.onTextChanged(it.toString())
+                        }
+                    }
+
+                    viewModel.screenState.observe(viewLifecycleOwner) { state ->
+                        when (state) {
+                            is LaunchesFragmentScreenState.Error -> Toast.makeText(
+                                requireContext(),
+                                "Error",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            is LaunchesFragmentScreenState.Loading -> {}
+                            else -> {}
+                        }
+                    }
+
+                    viewModel.exchangesList.observe(viewLifecycleOwner) {
+                        launchesAdapter.submitList(it)
+                    }
                 }
             }
         }
@@ -113,6 +152,8 @@ class LaunchesFragment: Fragment() {
     private suspend fun getSpaceXItems(): List<SpaceXItem> = coroutineScope {
         spaceXItemRepository.getAllSpaceX()
     }
+
+
 }
 
 fun LayoutErrorLoadingBinding.updateVisibility(state: LaunchesFragmentScreenState) {
@@ -120,4 +161,5 @@ fun LayoutErrorLoadingBinding.updateVisibility(state: LaunchesFragmentScreenStat
     errorMessageErrorLayout.isVisible = state is LaunchesFragmentScreenState.Error
     progressBarErrorLayout.isVisible = state is LaunchesFragmentScreenState.Loading
 }
+
 
