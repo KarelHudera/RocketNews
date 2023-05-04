@@ -118,7 +118,6 @@ class LaunchesFragment: Fragment() {
                         upcoming.text = "Upcoming"
                         sortBy.text = "Sort by"
                     }
-                    //=============================================
                     binding.recyclerItemsFilter.apply {
                         layoutManager = LinearLayoutManager(context)
                         adapter = launchesAdapter
