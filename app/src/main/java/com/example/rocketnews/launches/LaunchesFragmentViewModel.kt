@@ -13,8 +13,8 @@ class LaunchesFragmentViewModel: ViewModel() {
     private val _screenState = MutableLiveData<LaunchesFragmentScreenState>()
     val screenState: LiveData<LaunchesFragmentScreenState> = _screenState
 
-    val _exchangesList = MutableLiveData<List<ResponseSpaceXItem>>()
-    val exchangesList: LiveData<List<ResponseSpaceXItem>> = _exchangesList
+    val _spacexItemList = MutableLiveData<List<ResponseSpaceXItem>>()
+    val spacexItemList: LiveData<List<ResponseSpaceXItem>> = _spacexItemList
 
     init {
         getDataFromSpaceX()
@@ -46,7 +46,7 @@ class LaunchesFragmentViewModel: ViewModel() {
                 }
                 nameMatches || payloadsMatch
             }
-            _exchangesList.value = filteredList
+            _spacexItemList.value = filteredList
         }
     }
 }

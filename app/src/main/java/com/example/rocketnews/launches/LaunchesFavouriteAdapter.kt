@@ -18,11 +18,10 @@ import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-
 class LaunchesFavouriteAdapter :
     ListAdapter<SpaceXItem, LaunchesFavouriteAdapter.ItemViewHolder>(ItemsDiffCallBack()) {
 
-    val repository = SpaceXItemRepository()
+    private val repository = SpaceXItemRepository()
 
     inner class ItemViewHolder(private val binding: ItemLaunchesBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -71,11 +70,9 @@ class LaunchesFavouriteAdapter :
                         GlobalScope.launch {
                             repository.deleteSpaceX(selectedItem)
                         }
-                        notifyItemRemoved(position)
+                        notifyItemChanged(position)
                     }
                 }
-
-
             }
         }
     }
