@@ -1,7 +1,5 @@
 package com.example.rocketnews.apiSpaceX
 
-import com.example.rocketnews.apiNasa.ApiNasaInterface
-import com.example.rocketnews.apiNasa.ResponseNasa
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient

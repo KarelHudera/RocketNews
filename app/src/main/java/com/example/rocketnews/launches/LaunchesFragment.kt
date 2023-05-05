@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.rocketnews.R
 import com.example.rocketnews.databaseSpaceX.SpaceXItem
 import com.example.rocketnews.databaseSpaceX.SpaceXItemRepository
 import com.example.rocketnews.databinding.FragmentLaunchesBinding
@@ -67,7 +68,7 @@ class LaunchesFragment : Fragment() {
             }
 
             unPinAll.apply {
-                text = "Unpin all"
+                text = getString(R.string.launchesUnpinnned)
                 setOnClickListener {
                     viewModel.viewModelScope.launch {
                         spaceXItemRepository.deleteAllSpaceX()
@@ -80,9 +81,9 @@ class LaunchesFragment : Fragment() {
                 updateFilterViewsVisibility(it?.isNotEmpty() == true)
             }
 
-            pinned.text = "Pinned"
-            upcoming.text = "Upcoming"
-            sortBy.text = "Sort by"
+            pinned.text = getString(R.string.launchesPinnned)
+            upcoming.text = getString(R.string.launchesUpcoming)
+            sortBy.text = getString(R.string.launchesSort)
         }
     }
 

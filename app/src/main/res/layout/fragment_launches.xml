@@ -27,7 +27,7 @@
                 android:id="@+id/editTextFilter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16sp" />
+                android:textSize="@dimen/smaller_text" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
@@ -35,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textSize="24sp"
+            android:textSize="@dimen/text"
             android:textStyle="bold"
             android:layout_marginTop="16dp"
             android:text="Pinned"
@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:gravity="center"
-            android:textSize="16sp"
+            android:textSize="@dimen/smaller_text"
             android:textStyle="bold"
             android:text="Unpin all"
             app:layout_constraintTop_toTopOf="@+id/pinned"
@@ -69,7 +69,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:gravity="center"
-            android:textSize="24sp"
+            android:textSize="@dimen/text"
             android:textStyle="bold"
             android:text="Upcoming"
             app:layout_constraintTop_toBottomOf="@+id/recyclerFavouriteItems"
@@ -81,7 +81,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:gravity="center"
-            android:textSize="16sp"
+            android:textSize="@dimen/smaller_text"
             android:textStyle="bold"
             android:text="Sort by"
             app:layout_constraintTop_toTopOf="@+id/upcoming"

@@ -1,3 +1,26 @@
 <resources>
     <string name="app_name">Rocket News</string>
-</resources>
+
+    <string name="error">Error: </string>
+
+    <string name="dailyHeader">Today</string>
+    <string name="dailySmallHeader">Explanation</string>
+
+    <string name="launchesEiki">Wiki</string>
+
+    <string name="launchesPinnned">Pinned</string>
+    <string name="launchesUnpinnned">Unpin all</string>
+    <string name="launchesUpcoming">Upcoming</string>
+    <string name="launchesSort">Sort by</string>
+    <!--    XML     -->
+    <string name="daily_header">The Tarantula Nebula from SuperBIT</string>
+    <string name="daily_date">2023–04–27</string>
+    <string name="daily_today">Today</string>
+    <string name="daily_explanation">Explanation</string>
+    <string name="daily_article">The Tarantula Nebula, also known as 30 Doradus, is more than a thousand light-years in diameter, a giant star forming region within nearby satellite galaxy the Large Magellanic Cloud. About 160 thousand light-years away, argest, most violent star forming region known in the whole Local Group of galaxies. The cosmic arachnid is near the cenescope), NASuperB over 2 degrees or 4 fuouthern constellation Dorado.</string>
+
+    <string name="item_date">2006–03–24T22:30:00.000Z</string>
+    <string name="item_header">FalconSat</string>
+    <string name="item_stream">Stream</string>
+    <string name="item_wiki">Wiki</string>
+    </resources>

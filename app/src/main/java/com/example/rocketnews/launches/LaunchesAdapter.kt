@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.example.rocketnews.App
 import com.example.rocketnews.apiSpaceX.ResponseSpaceXItem
 import com.example.rocketnews.databaseSpaceX.SpaceXItem
 import com.example.rocketnews.databaseSpaceX.SpaceXItemRepository
@@ -20,9 +19,6 @@ import kotlinx.coroutines.launch
 
 class LaunchesAdapter() :
     ListAdapter<ResponseSpaceXItem, LaunchesAdapter.ItemViewHolder>(ItemsDiffCallBack()) {
-
-    private val appDatabase = App.instance.databaseSpaceX
-
 
     inner class ItemViewHolder(private val binding: ItemLaunchesBinding) :
         RecyclerView.ViewHolder(binding.root) {

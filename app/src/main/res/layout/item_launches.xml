@@ -46,7 +46,7 @@
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@id/cardView"
             app:layout_constraintTop_toTopOf="@id/cardView"
-            tools:text="FalconSat" />
+            tools:text="@string/item_header" />
 
         <TextView
             android:id="@+id/timer"
@@ -57,7 +57,7 @@
             android:textSize="10sp"
             app:layout_constraintStart_toStartOf="@id/name"
             app:layout_constraintTop_toBottomOf="@id/name"
-            tools:text="2006-03-24T22:30:00.000Z" />
+            tools:text="@string/item_date" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/livestream"
@@ -82,7 +82,7 @@
                 app:drawableStartCompat="@android:drawable/ic_media_play"
                 app:layout_constraintStart_toStartOf="@id/name"
                 app:layout_constraintTop_toBottomOf="@id/name"
-                tools:text="Stream" />
+                tools:text="@string/item_stream" />
         </androidx.cardview.widget.CardView>
 
 
@@ -91,7 +91,7 @@
             android:layout_width="wrap_content"
             android:layout_height="40dp"
 
-            android:text="Wiki"
+            android:text="@string/item_wiki"
             android:textSize="12sp"
             android:drawableRight="@android:drawable/stat_notify_voicemail"
             app:layout_constraintStart_toEndOf="@id/livestream"

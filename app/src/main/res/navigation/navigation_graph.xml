@@ -13,13 +13,5 @@
         android:id="@+id/launchesFragment2"
         android:name="com.example.rocketnews.launches.LaunchesFragment"
         android:label="LaunchesFragment" >
-
-        <action
-            android:id="@+id/action_to_filter"
-            app:destination="@id/filterFragment2" />
     </fragment>
-    <fragment
-        android:id="@+id/filterFragment2"
-        android:name="com.example.rocketnews.filter.FilterFragment"
-        android:label="FilterFragment" />
 </navigation>

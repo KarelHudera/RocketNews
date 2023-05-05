@@ -1,6 +1,5 @@
 package com.example.rocketnews.databaseSpaceX
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 
 @Dao

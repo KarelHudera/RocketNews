@@ -3,8 +3,6 @@ package com.example.rocketnews.databaseSpaceX
 import android.database.sqlite.SQLiteException
 import androidx.room.Room
 import com.example.rocketnews.App
-import com.example.rocketnews.databaseNasa.DatabaseNasa
-import com.example.rocketnews.databaseNasa.NasaItem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
